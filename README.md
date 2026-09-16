@@ -8,7 +8,7 @@ PRS can be calculated using HAIL, however, this method is not scalable to PRS wi
 
 **Starting up an app:**
 
-Recommended configuration (for V8): AoU Jupyter n2-highmem-64 64 CPUs, 512GB memory, $4.22 per hour Check with V9
+Recommended configuration (for V8): AoU Jupyter n2-highmem-64 64 CPUs, 512GB memory, $4.22 per hour - set AutoStop to 1 hr. Check with V9
 
 High memory is needed for the plink bed files
 
