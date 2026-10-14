@@ -13,7 +13,7 @@ Recommended configuration (for V8): AoU Jupyter n2-highmem-64 64 CPUs, 512GB mem
 High memory is needed for the plink bed files
 
 **Predicted run time:**
-
+~4 hours, autostop appears unreliable 
 **Setting variables:**
 
 *“000\_indicate\_PGSID.ipynb”:* We tried to make this as hands-off as possible; therefore, you only need to set the environmental variables once in *“000\_indicate\_PGSID.ipynb”* and the rest of the scripts can be run sequentially without any hard coding using papermill to execute the notebooks.
