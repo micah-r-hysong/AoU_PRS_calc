@@ -24,7 +24,7 @@ High memory is needed for the plink bed files
 
 Once you select your PGSID, you can run the papermill command in *“000\_indicate\_PGSID.ipynb”* which will run the following scripts sequentially.
 
- *“001\_prepare\_weights\_files\_from\_PGS\_catalog.ipynb”* aligns the PGS scoring files to the AoU bim file format. This includes loading the PGS score file from PGS catalog, lifting over the score file to GRCh38 if needed, preparing SNP IDs to match the .bim file, and finding allele matches from PGS score file in BIM files. This script will report QC tracking which is also saved as “{PGS\_ID}\_qc\_metrics\_{BUILD}.txt.”
+ *“001\_prepare\_weights\_files\_from\_PGS\_catalog.ipynb”* aligns the PGS scoring files to the AoU bim file format. This includes loading the PGS score file from PGS catalog, removing palindromic sites, lifting over the score file to GRCh38 if needed, preparing SNP IDs to match the .bim file, and finding allele matches from PGS score file in BIM files. This script will report QC tracking which is also saved as “{PGS\_ID}\_qc\_metrics\_{BUILD}.txt.”
 
 *“005\_run\_plink\_bash.ipynb”* runs plink2 in parallel across all of the chromosomes at once; therefore, the time it takes to run chromosomes 1/2 (the largest chromosomes) should be the rate limiting step.
 
