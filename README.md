@@ -1,6 +1,6 @@
 **Readme**
 
-These scripts were developed to make PGS calculation in AoU Workbench 2.0 accessible to a wider research community. We tried different tools and present the workflow that balances intuitiveness and resource / cost-efficiency.
+These scripts were developed to make PGS calculation in AoU Workbench 2.0 accessible to a wider research community. We tried different tools and present the workflow that balances intuitiveness and resource / cost-efficiency. A single PGS ID or list of PGS IDs can be supplied for calculation.
 
 **When to use:**
 
@@ -14,7 +14,7 @@ High memory is needed for the plink bed files
 
 **Predicted run time:**
 
-~4 hours, autostop appears unreliable 
+~4 hours for 1 PRS, autostop appears unreliable 
 
 **Setting variables:**
 
@@ -22,7 +22,7 @@ High memory is needed for the plink bed files
 
 **Calculating PGS:**
 
-Once you select your PGSID, you can run the papermill command in *“000\_indicate\_PGSID.ipynb”* which will run the following scripts sequentially.
+Once you select your PGSID (or list of PGS IDs), you can run the papermill command in *“000\_indicate\_PGSID.ipynb”* which will run the following scripts sequentially.
 
  *“001\_prepare\_weights\_files\_from\_PGS\_catalog.ipynb”* aligns the PGS scoring files to the AoU bim file format. This includes loading the PGS score file from PGS catalog, removing palindromic sites from scores originally constructed with GRCh37, lifting over the score file to GRCh38 if needed, preparing SNP IDs to match the .bim file, and finding allele matches from PGS score file in BIM files. This script will report QC tracking which is also saved as “{PGS\_ID}\_qc\_metrics\_{BUILD}.txt.”
 
@@ -47,6 +47,7 @@ base\_directory: “/home/jupyter/workspace/workspace-bucket/calculate\_pgs/work
 | ${PGS}_${BUILD}_${RUN_ID} | “ “ | “ “ | Folder with score files and logs per chromosome |
 | ${PGS}_combined_chr1_22_${RUN_ID}.csv | 010_combine_chr_check_QC.ipynb | Base_directory/plink_results/${PGS}_${BUILD}_${RUN_ID} | Person id and their score |
 | variants_incorporated_by_chr_${PGS}_${RUN_ID}.csv | “ “ | “ “ | Number of variants by chr, total and percent of variants incorporated |
+| percent_incorperated_${PGS_IDs}_${RUN\_ID}.csv | “ “ | “ “ | Percent of variants incorporated across multiple PGS |
 | pre_adjusted_score_density.png | 015_genetic_ancestry_adjustment.ipynb | “” | Pre genetic ancestry adjustment PGS distribution colored by ancestry groups |
 | post_adjusted_score_training_data_density.png | “” | “” | PGS distribution post genetic ancestry adjustment in the training data |
 | post_adjusted_score_testing_data_density.png | “” | “” | PGS distribution post genetic ancestry adjustment in the testing data |
@@ -63,10 +64,12 @@ For this project, running on the existing VM is a practical workaround because t
 
 There are a few things to check.
 
-1.        Base\_directory/ pgs\_bim\_matched\_weights/{PGS\_ID}\_qc\_metrics\_{BUILD}.txt
+1. Base\_directory/ pgs\_bim\_matched\_weights/{PGS\_ID}\_qc\_metrics\_{BUILD}.txt
+- percent\_found should be close to 100%
 
-a.        percent\_found should be close to 100%
+2. Base\_directory/plink\_results/${PGS}\_${BUILD}\_${RUN\_ID}/ variants\_incorporated\_by\_chr\_${PGS}\_${RUN\_ID}.csv
+- Percent incorporated should be close to 100%
+3. Base\_directory/plink\_results/${PGS}\_${BUILD}\_${RUN\_ID}/percent\_incorperated\_${PGS_IDs}\_${RUN\_ID}.csv
+-   Percent incorporated should be close to 100% (easier to read for multiple PGS)
 
-2.        Base\_directory/plink\_results/${PGS}\_${BUILD}\_${RUN\_ID}/ variants\_incorporated\_by\_chr\_${PGS}\_${RUN\_ID}.csv
 
-a.        Percent incorporated should be close to 100%
