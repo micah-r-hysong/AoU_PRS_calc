@@ -17,7 +17,8 @@ High memory is needed for the plink bed files
 * ~6 hours for 6 PRS / 2,764,037 variants
 * ~22 hours for 15 PRS / 16,339,291 variants
 * Therefore predicted run time (using the machine above) can be estimated roughly as  2.49 + 1.16 * variants_millions + 0.05 * n_pgs
-autostop appears unreliable 
+
+**Note:** autostop appears unreliable 
 
 **Setting variables:**
 
