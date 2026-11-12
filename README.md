@@ -13,9 +13,10 @@ Recommended configuration (for V8): AoU Jupyter n2-highmem-64 64 CPUs, 512GB mem
 High memory is needed for the plink bed files
 
 **Predicted run time:**
-~4 hours for 1 PRS / 1,258,327 variants
-~6 hours for 6 PRS / 2,764,037 variants
-~22 hours for 15 PRS / 16,339,291 variants
+* ~4 hours for 1 PRS / 1,258,327 variants
+* ~6 hours for 6 PRS / 2,764,037 variants
+* ~22 hours for 15 PRS / 16,339,291 variants
+* Therefore predicted run time (using the machine above) can be estimated roughly as  2.49 + 1.16 * variants_millions + 0.05 * n_pgs
 autostop appears unreliable 
 
 **Setting variables:**
