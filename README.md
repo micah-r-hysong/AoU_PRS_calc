@@ -28,7 +28,7 @@ High memory is needed for the plink bed files
 
 Once you select your PGSID (or list of PGS IDs), you can run the papermill command in *“000\_indicate\_PGSID.ipynb”* which will run the following scripts sequentially.
 
- *“001\_prepare\_weights\_files\_from\_PGS\_catalog.ipynb”* aligns the PGS scoring files to the AoU bim file format. This includes loading the PGS score file from PGS catalog, lifting over the score file to GRCh38 if needed, preparing SNP IDs to match the .bim file, flipping palindromic sites with strand flips between liftover, and finding allele matches from PGS score file in BIM files. This script will report QC tracking which is also saved as “{PGS\_ID}\_qc\_metrics\_{BUILD}.txt.”
+ *“001\_prepare\_weights\_files\_from\_PGS\_catalog.ipynb”* aligns the PGS scoring files to the AoU bim file format. This includes loading the PGS score file from PGS catalog, lifting over the score file to GRCh38 if needed, preparing SNP IDs to match the .bim file, flipping palindromic sites with strand flips between liftover, and finding allele matches from PGS score file in BIM files. This script will report QC tracking which is also saved as “{PGS\_ID}\_qc\_metrics\_GRCh38.txt.”
 
 *“005\_run\_plink\_bash.ipynb”* runs plink2 in parallel across all of the chromosomes at once; therefore, the time it takes to run chromosomes 1/2 (the largest chromosomes) should be the rate limiting step.
 
@@ -42,14 +42,14 @@ base\_directory: “/home/jupyter/workspace/workspace-bucket/calculate\_pgs/work
 
 | Folder / File name | Generated in | Location | Contains |
 | --- | --- | --- | --- |
-| PGS_calc_param.txt | 000_indicate_PGSID.ipynb | base_directory | PGS ID, genome build, chromosomes parameters |
-| {PGS_ID}_hmPOS_{BUILD}.txt.gz | 001_prepare_weights_files_from_PGS_catalog.ipynb | Base_directory/pgs_catalog_weights | Weights file downloaded from pgs catalog |
-| {PGS_ID}_plink_score_{BUILD}_prepared.txt | “ “ | Base_directory/ pgs_bim_matched_weights | Prepared weights file |
-| {PGS_ID}_qc_metrics_{BUILD}.txt | “ “ | “ “ | QC metrics from weight preparation step |
+| PGS_calc_param.txt | 000_indicate_PGSID.ipynb | base_directory | PGS ID, chromosomes parameters |
+| {PGS_ID}_hmPOS_GRCh38.txt.gz | 001_prepare_weights_files_from_PGS_catalog.ipynb | Base_directory/pgs_catalog_weights | Weights file downloaded from pgs catalog |
+| {PGS_ID}_plink_score_GRCh38_prepared.txt | “ “ | Base_directory/ pgs_bim_matched_weights | Prepared weights file |
+| {PGS_ID}_qc_metrics_GRCh38.txt | “ “ | “ “ | QC metrics from weight preparation step |
 | plink_bed_parallel.sh | 005_run_plink_bash.ipynb | Base_directory | Bash script for plink |
-| latest_run.env | “ “ | Base_directory/plink_results | Run_id, output_path, PGS_ID, genome build |
-| ${PGS}_${BUILD}_${RUN_ID} | “ “ | “ “ | Folder with score files and logs per chromosome |
-| ${PGS}_combined_chr1_22_${RUN_ID}.csv | 010_combine_chr_check_QC.ipynb | Base_directory/plink_results/${PGS}_${BUILD}_${RUN_ID} | Person id and their score |
+| latest_run.env | “ “ | Base_directory/plink_results | Run_id, output_path, PGS_ID |
+| ${PGS}_GRCh38_${RUN_ID} | “ “ | “ “ | Folder with score files and logs per chromosome |
+| ${PGS}_combined_chr1_22_${RUN_ID}.csv | 010_combine_chr_check_QC.ipynb | Base_directory/plink_results/${PGS}_GRCh38_${RUN_ID} | Person id and their score |
 | variants_incorporated_by_chr_${PGS}_${RUN_ID}.csv | “ “ | “ “ | Number of variants by chr, total and percent of variants incorporated |
 | percent_incorperated_${PGS_IDs}_${RUN\_ID}.csv | “ “ | “ “ | Percent of variants incorporated across multiple PGS |
 | pre_adjusted_score_density.png | 015_genetic_ancestry_adjustment.ipynb | “” | Pre genetic ancestry adjustment PGS distribution colored by ancestry groups |
@@ -68,12 +68,12 @@ For this project, running on the existing VM is a practical workaround because t
 
 There are a few things to check.
 
-1. Base\_directory/ pgs\_bim\_matched\_weights/{PGS\_ID}\_qc\_metrics\_{BUILD}.txt
+1. Base\_directory/ pgs\_bim\_matched\_weights/{PGS\_ID}\_qc\_metrics\_GRCh38.txt
 - percent\_found should be close to 100%
 
-2. Base\_directory/plink\_results/${PGS}\_${BUILD}\_${RUN\_ID}/ variants\_incorporated\_by\_chr\_${PGS}\_${RUN\_ID}.csv
+2. Base\_directory/plink\_results/${PGS}\_GRCh38\_${RUN\_ID}/ variants\_incorporated\_by\_chr\_${PGS}\_${RUN\_ID}.csv
 - Percent incorporated should be close to 100%
-3. Base\_directory/plink\_results/${PGS}\_${BUILD}\_${RUN\_ID}/percent\_incorperated\_${PGS_IDs}\_${RUN\_ID}.csv
+3. Base\_directory/plink\_results/${PGS}\_GRCh38\_${RUN\_ID}/percent\_incorperated\_${PGS_IDs}\_${RUN\_ID}.csv
 -   Percent incorporated should be close to 100% (easier to read for multiple PGS)
 
 
