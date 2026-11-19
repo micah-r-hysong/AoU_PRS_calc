@@ -4,7 +4,7 @@ These scripts were developed to make PGS calculation in AoU Workbench 2.0 access
 
 **When to use:**
 
-PRS can be calculated using HAIL, however, this method is not scalable to PRS with more than hundreds to a few thousand variants. This plink method is highly scalable. The rate limiting step is loading the genotype files, so the number of variants in your PRS shouldn’t really affect the run time or memory.
+PRS can be calculated using HAIL, however, this method is not scalable to PRS with more than hundreds to a few thousand variants. With larger and larger version releases, HAIL will be less and less effective. This plink method is scalable to more and larger PGS. 
 
 **Starting up an app:**
 
@@ -22,19 +22,19 @@ High memory is needed for the plink bed files
 
 **Setting variables:**
 
-*“000\_indicate\_PGSID.ipynb”:* We tried to make this as hands-off as possible; therefore, you only need to set the environmental variables once in *“000\_indicate\_PGSID.ipynb”* and the rest of the scripts can be run sequentially without any hard coding using papermill to execute the notebooks.
+*“000\_indicate\_PGSID.ipynb”:* We tried to make this as hands-off as possible; therefore, you only need to set the environmental variables once in *“000\_indicate\_PGSID.ipynb”* and the rest of the scripts can be run sequentially without any hard coding - using papermill to execute the notebooks. A sample ID file can be provided to indicate who to include in the PGS genetic PC adjustment training vs testing data (see 015 for more info). 
 
 **Calculating PGS:**
 
 Once you select your PGSID (or list of PGS IDs), you can run the papermill command in *“000\_indicate\_PGSID.ipynb”* which will run the following scripts sequentially.
 
- *“001\_prepare\_weights\_files\_from\_PGS\_catalog.ipynb”* aligns the PGS scoring files to the AoU bim file format. This includes loading the PGS score file from PGS catalog, lifting over the score file to GRCh38 if needed, preparing SNP IDs to match the .bim file, flipping palindromic sites with strand flips between liftover, and finding allele matches from PGS score file in BIM files. This script will report QC tracking which is also saved as “{PGS\_ID}\_qc\_metrics\_GRCh38.txt.”
+ *“001\_prepare\_weights\_files\_from\_PGS\_catalog.ipynb”* aligns the PGS scoring files to the AoU bim file format. This includes loading the PGS score file from PGS catalog, preparing SNP IDs to match the .bim file, and finding allele matches from PGS score file in BIM files. Multiple PGS are saved in a wide score file for computational efficiency of the next step. This script will report QC tracking which is also saved as “{PGS\_ID}\_qc\_metrics\_GRCh38.txt.” For multiple PGS, a combined QC file is also prepared: "combined\_qc\_metrics\_{pgs\_ids}.txt"
 
-*“005\_run\_plink\_bash.ipynb”* runs plink2 in parallel across all of the chromosomes at once; therefore, the time it takes to run chromosomes 1/2 (the largest chromosomes) should be the rate limiting step.
+*“005\_run\_plink\_bash.ipynb”* runs plink2 in parallel across all of the chromosomes at once; therefore, the time it takes to run chromosomes 1/2 (the largest chromosomes) should be the rate limiting step. No-mean-imputation and score sums are used. A wide score file is used to compute multiple PGS at once. 
 
-*“010\_combine\_chr\_check\_QC.ipynb”* combines the chromosomes into a single score file and reports QC metrics from PRS construction.
+*“010\_combine\_chr\_check\_QC.ipynb”* combines the chromosomes into a single score sum file and reports QC metrics from PRS construction.
 
-“015\_genetic\_ancestry\_adjustment.ipynb” performs mean and variance adjustment of the PRS as a function of 16 genetic principal components, reducing technical ancestry-related differences in the score distribution – as recommended by the eMERGE consortium. The adjustment model is trained using individuals with WGS data who do not have linked EHR data.
+“015\_genetic\_ancestry\_adjustment.ipynb” performs mean and variance adjustment of the PRS as a function of 16 genetic principal components, reducing technical ancestry-related differences in the score distribution – as recommended by the eMERGE consortium. The adjustment model is trained using individuals with WGS data who do not have linked EHR data. A sample_id file can also be provided in which anyone not included in the sample_id file will be used to train the adjustment model. 
 
 **Output files:**
 
@@ -46,6 +46,7 @@ base\_directory: “/home/jupyter/workspace/workspace-bucket/calculate\_pgs/work
 | {PGS_ID}_hmPOS_GRCh38.txt.gz | 001_prepare_weights_files_from_PGS_catalog.ipynb | Base_directory/pgs_catalog_weights | Weights file downloaded from pgs catalog |
 | {PGS_ID}_plink_score_GRCh38_prepared.txt | “ “ | Base_directory/ pgs_bim_matched_weights | Prepared weights file |
 | {PGS_ID}_qc_metrics_GRCh38.txt | “ “ | “ “ | QC metrics from weight preparation step |
+| combined_qc_metrics_{pgs_ids}.txt | “ “ | “ “ | Combined QC metrics from weight preparation step for multiple PGS |
 | plink_bed_parallel.sh | 005_run_plink_bash.ipynb | Base_directory | Bash script for plink |
 | latest_run.env | “ “ | Base_directory/plink_results | Run_id, output_path, PGS_ID |
 | ${PGS}_GRCh38_${RUN_ID} | “ “ | “ “ | Folder with score files and logs per chromosome |
