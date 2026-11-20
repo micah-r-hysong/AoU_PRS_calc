@@ -19,7 +19,9 @@ High memory is needed for the plink bed files
 * Therefore predicted run time (using the machine described above on V8 data) can be estimated roughly as  2.49 + 1.16 * variants_millions + 0.05 * n_pgs
 
 **New Predicted run time:**
-* 03:22:00: 2 PRS / 1,797,838 variants 
+* 03:22:00: 2 PRS / 1,797,838 variants
+
+Running on a AoU Jupyter n1-highmem-32 32 CPUs, 208GB memory, $1.92 per hour
 
 **Note:** autostop appears unreliable 
 
