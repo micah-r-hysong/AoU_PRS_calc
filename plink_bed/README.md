@@ -22,6 +22,8 @@ High memory is needed for the plink bed files
 On a AoU Jupyter n1-highmem-32 32 CPUs, 208GB memory, $1.92 per hour
 * 3.5 hrs 2 PRS / 1,797,838 variants
 
+On a AoU Jupyter n1-standard-32 32 CPUs, 120GB memory, $1.55 per hour
+
 **Note:** autostop appears unreliable 
 
 **Setting variables:**
