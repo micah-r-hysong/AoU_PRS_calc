@@ -26,6 +26,7 @@ On a AoU Jupyter n1-standard-32 32 CPUs, 120GB memory, $1.55 per hour
 | --- | --- | --- | --- |
 | 3.5 | 8 | 2 | 1,797,838 |
 | 3.66 | 8 | 5 | 2,764,037 |
+| 10.78 | 8 | 15 | 16,339,291 |
 
 
 **Note:** autostop appears unreliable 
