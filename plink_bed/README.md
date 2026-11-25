@@ -19,7 +19,7 @@ On a AoU Jupyter n1-standard-32 32 CPUs, 120GB memory, $1.55 per hour
 | 3.66 | 8 | 5 | 2,764,037 |
 | 10.78 | 8 | 15 | 16,339,291 |
 
-Estimated run time: 2.70 + 0.49 × variants_millions + 0.14 × n_PGS
+Estimated run time (hr): 2.70 + 0.49 × variants_millions + 0.14 × n_PGS
 
 **Note:** autostop appears unreliable 
 
