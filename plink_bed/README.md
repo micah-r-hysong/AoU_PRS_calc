@@ -22,7 +22,7 @@ V8: On a AoU Jupyter n2-highmem-64 64 CPUs, 512GB memory, $4.22 per hour [old co
 **New Predicted run time:**
 V8: On a AoU Jupyter n1-standard-32 32 CPUs, 120GB memory, $1.55 per hour
 * 3.5 hrs 2 PRS / 1,797,838 variants
-* 3.66 hrs 6 PRS / 2,764,037 variants
+* 3.66 hrs 5 PRS / 2,764,037 variants
 * 
 
 **Note:** autostop appears unreliable 
