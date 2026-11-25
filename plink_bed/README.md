@@ -23,6 +23,7 @@ V8: On a AoU Jupyter n2-highmem-64 64 CPUs, 512GB memory, $4.22 per hour [old co
 On a AoU Jupyter n1-standard-32 32 CPUs, 120GB memory, $1.55 per hour
 
 | Time (hr) | Version | n_PGS | n_variants |
+| --- | --- | --- | --- |
 | 3.5 | 8 | 2 | 1,797,838 |
 | 3.66 | 8 | 5 | 2,764,037 |
 
