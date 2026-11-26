@@ -4,7 +4,7 @@ These scripts were developed to make PGS calculation in AoU Workbench 2.0 access
 
 **When to use:**
 
-PRS can be calculated using HAIL, however, this method is not scalable to PRS with more than hundreds to a few thousand variants. With larger and larger version releases, HAIL will be less and less effective. This plink method is scalable to more and larger PGS. 
+PRS can be calculated using HAIL, however, this method is not scalable to PRS with more than hundreds to a few thousand variants. With larger and larger version releases, HAIL will be less and less effective. This plink method is scalable to more and larger PGS and works on both V8 and V9.
 
 **Starting up an app:**
 
@@ -13,11 +13,11 @@ Recommended configuration: AoU Jupyter n1-standard-32 32 CPUs, 120GB memory, $1.
 **Predicted run time:**
 On a AoU Jupyter n1-standard-32 32 CPUs, 120GB memory, $1.55 per hour
 
-| Time (hr) | Version | n_PGS | n_variants |
-| --- | --- | --- | --- |
-| 3.5 | 8 | 2 | 1,797,838 |
-| 3.66 | 8 | 5 | 2,764,037 |
-| 10.78 | 8 | 15 | 16,339,291 |
+| Time (hr) | n_PGS | n_variants |
+| --- | --- | --- |
+| 3.5 | 2 | 1,797,838 |
+| 3.66 | 5 | 2,764,037 |
+| 10.78 | 15 | 16,339,291 |
 
 Estimated run time (hr): 2.70 + 0.49 × variants_millions + 0.14 × n_PGS
 
